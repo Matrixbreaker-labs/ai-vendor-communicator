@@ -1,9 +1,9 @@
 import os
 from google import genai
 
-# ১. সাপ্লাই চেইন ইমেইল অপটিমাইজেশন ইঞ্জিন (SCM Email Optimization Engine)
+# 1. SCM Email Optimization Engine
 def generate_vendor_email_via_ai(context_data, tone="professional"):
-    """গুগল জেমিনি এপিআই ব্যবহার করে সাপ্লাই চেইনের জটিল পরিস্থিতি অনুযায়ী অটোমেটিক ইমেইল ড্রাফট করার মেকানিズム।"""
+    """Uses Google Gemini API to auto-draft critical supply chain communications."""
     client = genai.Client()
     
     prompt = f"""
@@ -23,7 +23,7 @@ def generate_vendor_email_via_ai(context_data, tone="professional"):
     return response.text.strip()
 
 if __name__ == "__main__":
-    # টেস্ট করার জন্য একটি রিয়াল-ওয়ার্ল্ড সাপ্লাই চেইন ডিলে সিনারিও
+    # Real-world operational supply chain crisis scenario for testing
     sample_scm_crisis = """
     Scenario: Shipping Delay from Shanghai Port.
     Vendor Name: OceanFreight Global Ltd.
