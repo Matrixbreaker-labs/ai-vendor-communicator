@@ -3,7 +3,8 @@ from google import genai
 
 # 1. SCM Email Optimization Engine
 def generate_vendor_email_via_ai(context_data, tone="professional"):
-    """Uses Google Gemini API to auto-draft critical supply chain communications."""
+    """Uses Google Gemini API to auto-draft critical supply chain communications using the new Interactions API."""
+    # This is safe for GitHub as no API key is hardcoded; it automatically loads from the environment.
     client = genai.Client()
     
     prompt = f"""
@@ -16,11 +17,14 @@ def generate_vendor_email_via_ai(context_data, tone="professional"):
     {context_data}
     """
     
-    response = client.models.generate_content(
-        model='gemini-2.5-flash',
-        contents=prompt,
+    # Utilizing the latest recommended Interactions API and gemini-3.8-flash model
+    interaction = client.interactions.create(
+        model='gemini-3.8-flash',
+        input=prompt,
     )
-    return response.text.strip()
+    
+    # Returning the generated text using the updated output_text interface
+    return interaction.output_text.strip()
 
 if __name__ == "__main__":
     # Real-world operational supply chain crisis scenario for testing
@@ -32,7 +36,7 @@ if __name__ == "__main__":
     Required Action: Demand immediate recovery plan and daily transit tracking updates. Warn them about potential late delivery penalties as per the contract SLA.
     """
     
-    print("[*] Launching SCM Silicon Communication Engine...")
+    print("[*] Launching SCM Silicon Communication Engine with Gemini 3.8 Flash...")
     generated_email = generate_vendor_email_via_ai(sample_scm_crisis, tone="assertive and professional")
     
     print("\n=================== GENERATED OUTPUT ===================\n")
